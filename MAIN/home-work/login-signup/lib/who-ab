@@ -1,0 +1,32 @@
+#! /bin/bash
+
+# The MIT License (MIT)
+# Copyright (c) 2023 Emeer Adhamian (github.com/kode-trek)
+# https://raw.githubusercontent.com/kode-trek/who/main/LICENSE
+
+# help
+if [[ "$1" == "--help" ]]
+then
+ /usr/bin/who-ab-bin/help
+ exit
+fi
+# command-list
+if [[ "$1" == "cmd" ]]
+then
+ /usr/bin/who-ab-bin/menu
+ exit
+fi
+# adds
+if [[ "$1" == "sign-up" ]]
+then
+ /usr/bin/who-ab-bin/signup "$2" "$3" "$4"
+ exit
+fi
+# delete
+if [[ "$1" == "sign-in" ]]
+then
+ /usr/bin/who-ab-bin/signin "$2" "$3" "$4" "$5" "$6" "$7" "$8"
+ exit
+fi
+# intro
+ /usr/bin/who-ab-bin/intro

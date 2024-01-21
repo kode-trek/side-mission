@@ -1,0 +1,98 @@
+<style>
+textarea {resize: vertical;}
+</style>
+
+<img id="id-1" src="1.jpg" width="320" height="240" />
+<br><br>
+<button onClick="f_prv()">prv</button>
+<button onClick="f_nxt()">nxt</button>
+<br><br>
+<button onClick="f_gal()">gal</button>
+<button onClick="f_place()">place</button>
+<button onClick="f_yum()">yum</button>
+<button onClick="f_meme()">meme</button>
+<button onClick="f_kino()">kino</button>
+<button onClick="f_game()">game</button>
+<button onClick="f_book()">book</button>
+<button onClick="f_music()">music</button>
+<button onClick="f_study()">study</button>
+<button onClick="f_4ma()">4ma</button>
+<button onClick="f_yard()">yard</button>
+<button onClick="f_rem()">remove</button>
+<br><br>
+<textarea id="id-2" rows="4" cols="64"></textarea>
+<script src="img_DB.js"></script>
+<script>
+var c = 0
+var cmd = ""
+
+function f_nxt() {
+ document.getElementById("id-1").src = img_ls[c+1];
+ c = c + 1;
+}
+function f_prv() {
+ document.getElementById("id-1").src = img_ls[c-1];
+ c = c - 1;
+}
+
+function f_rem() {
+ cmd = "mv \"" + img_ls[c] + "\" \"rem_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_4ma() {
+ cmd = "mv \"" + img_ls[c] + "\" \"4ma_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_kino() {
+ cmd = "mv \"" + img_ls[c] + "\" \"kino_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_study() {
+ cmd = "mv \"" + img_ls[c] + "\" \"study_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_yard() {
+ cmd = "mv \"" + img_ls[c] + "\" \"yard_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_meme() {
+ cmd = "mv \"" + img_ls[c] + "\" \"meme_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_book() {
+ cmd = "mv \"" + img_ls[c] + "\" \"book_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_game() {
+ cmd = "mv \"" + img_ls[c] + "\" \"game_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_music() {
+ cmd = "mv \"" + img_ls[c] + "\" \"music_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_place() {
+ cmd = "mv \"" + img_ls[c] + "\" \"place_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_yum() {
+ cmd = "mv \"" + img_ls[c] + "\" \"yum_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+function f_gal() {
+ cmd = "mv \"" + img_ls[c] + "\" \"gal_" + img_ls[c] + "\""
+ document.getElementById("id-2").innerHTML += cmd + "\n";
+ f_nxt()
+}
+</script>

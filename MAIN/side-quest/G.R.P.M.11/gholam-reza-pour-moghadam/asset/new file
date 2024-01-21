@@ -1,0 +1,36 @@
+Greetings Mr. Reza,
+
+The other night you asked me a question, that I couldn't answer thoroughly at
+the time.
+
+You told me that you already discovered some patterns and established some
+rules. Also You was curious, whether it is possible to FEED the machine those
+RULES, we already discovered by analyzing the patterns.
+
+The answer is, YES. However we need to be careful of a phenomenon called,
+over-fitting.
+
+According to Wikipedia:
+	In statistics, overfitting is "the production of an analysis that
+	corresponds TOO CLOSELY or EXACTLY to a particular set of data, and may
+	therefore fail to fit additional data or predict future observations
+	reliably"[1].
+we need to be cautious not to feed them rules to machine, or we end up
+predicting a few observations correctly, but missing the rest of them by
+mistake.
+
+After all, this is called TRAINing the machine. As it means let the machine, but
+not the human, do the inducting procedure.
+
+In case of feeding it the pre-defined RULES that we humans found out, that would
+be INSTRUCTing the machine, rather than TRAINing.
+
+There are several algorithms that let the machine figures them RULES all by
+itself, including:
+	- Apriori
+	- FP-growth
+
+Nevertheless I's glad to hear about the methods that you gained them
+rules. Please explain them to me via AnyDesk.
+
+[1]. https://en.wikipedia.org/wiki/Overfitting

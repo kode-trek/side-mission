@@ -1,0 +1,49 @@
+#! /bin/bash
+
+# The MIT License (MIT)
+# Copyright (c) 2023 Emeer Adhamian (github.com/kode-trek)
+# https://raw.githubusercontent.com/kode-trek/who/main/LICENSE
+
+GREEN='\033[1;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[1;34m'
+RED='\033[1;35m'
+NC='\033[0m'
+
+printf "${GREEN}WHO-AB${NC}"
+printf " is an Address Book Data-Bank. "
+printf "${ORANGE}INSTALL?${NC}"
+read -p " (Y/N): " confirm && [[ $confirm == [yY] ]] || exit 1
+
+lab51cc 1>/dev/null 2>/dev/null
+if [[ "$?" > 0 ]]
+then
+ printf "${ORANGE}[DEPENDENCY]${NC}"" lab51cc"
+ printf "${BLUE}[CONTACT]${NC}"" github.com/kode-trek"
+ read -n1 -r -p "Press ANY-KEY to EXIT..." key
+ exit
+fi
+
+path="/usr/bin/who-ab"
+if [[ -e $path ]]
+then
+ printf "${ORANGE}[WARNING]${NC} file(s) found: $path""\n"
+ read -p "CONTINUE? (Y/N): " confirm && [[ $confirm == [yY] ]] || exit 1
+fi
+
+path="~/who-ab_DB"
+if [[ -e $path ]]
+then
+ printf "${ORANGE}[WARNING]${NC} file(s) found: $path""\n"
+ read -p "CONTINUE? (Y/N): " confirm && [[ $confirm == [yY] ]] || exit 1
+fi
+
+rm -r $path 2>/dev/null
+mkdir $path
+
+lab51cc main_who.cc
+mv main_who_*.out who-ab
+sudo mv who-ab /usr/bin/
+
+printf "${BLUE}[]${NC} who-ab --help""\n"
+read -n1 -r -p "Press any key to EXIT..." key

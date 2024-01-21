@@ -1,0 +1,26 @@
+[DATE] 2019 Nov 02
+
+[CLIENT] fateme__t.me/GroupComputers
+
+[RAW_REQUEST] in-1.png
+
+[SUDO-CODE]
+[1] DO recieves 'name'.
+[2] DO counts vowel-letter(s) in [1].
+[3] IF [2] is "even" THEN echos "girl".
+[4] IF [2] is "odd" THEN echos "boy".
+
+[ADDITIONAL NOTE]
+1. (optional) name could be ascii
+2. (obligatory) must be written in C#
+   [!] written in C/C++
+3. (obligatory) must be run in DOS/WINDOWS
+
+[SOURCE-CODE] boy-girl.cc
+
+[REQUIRED] https://github.com/c-dyane/lab51/tree/main/lab51cc
+[COMPILE] lab51cc --cross boy-girl.cc
+
+[OUT] boy-girl_x32_*.exe
+
+[SNAPSHOT] out-1.png

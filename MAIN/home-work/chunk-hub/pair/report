@@ -1,0 +1,22 @@
+vspades@300E4C-300E5C-300E7C ~/Desktop/untitled folder $ time cat jlst.txt | xargs -P 2 -I XX cp 1.mp4 "XX"
+
+real	0m24.373s
+user	0m0.000s
+sys	0m1.636s
+vspades@300E4C-300E5C-300E7C ~/Desktop/untitled folder $ bash mp_cp.sh 
+vspades@300E4C-300E5C-300E7C ~/Desktop/untitled folder $ time bash mp_cp.sh 
+
+real	0m29.911s
+user	0m0.000s
+sys	0m1.704s
+vspades@300E4C-300E5C-300E7C ~/Desktop/untitled folder $ time bash sp_cp.sh 
+
+real	0m25.580s
+user	0m0.000s
+sys	0m1.432s
+vspades@300E4C-300E5C-300E7C ~/Desktop/untitled folder $ time cat jlst.txt | xargs -P 4 -I XX cp 1.mp4 "XX"
+
+real	0m27.575s
+user	0m0.016s
+sys	0m1.764s
+vspades@300E4C-300E5C-300E7C ~/Desktop/untitled folder $ 

@@ -1,0 +1,262 @@
+<pre>
+Applying <b>Simple Linear Regression</b> on column D of </i>original.csv</i>:
+
+<pre style='background-color:grey'>
+import numpy as np
+import pandas as pd
+#import matplotlib.pyplot as plt
+from random import randint
+from random import sample
+
+def estimate_coef(x, y):
+	# number of observations/points
+	n = np.size(x)
+
+	# mean of x and y vector
+	m_x, m_y = np.mean(x), np.mean(y)
+
+	# calculating cross-deviation and deviation about x
+	SS_xy = np.sum(y*x) - n*m_y*m_x
+	SS_xx = np.sum(x*x) - n*m_x*m_x
+
+	# calculating regression coefficients
+	b_1 = SS_xy / SS_xx
+	b_0 = m_y - b_1*m_x
+
+	return(b_0, b_1)
+
+v1 = pd.read_csv('original.csv')
+
+qc = np.array(v1['C'])
+qd = np.array(v1['D'])
+
+# train
+x = sample(range(len(qc)), 3484)
+y = sample(range(len(qd)), 3484)
+x = np.array(x)
+y = np.array(y)
+
+x1 = []
+for i in x:
+	x1.append(qc[i])
+x1 = np.array(x1)
+
+y1 = []
+for i in y:
+	y1.append(qd[i])
+y1 = np.array(y1)
+
+# test
+x2 = []
+for i in range(len(qc)):
+	if i not in x:	x2.append(qc[i])
+
+y2 = []
+for i in range(len(qd)):
+	if i not in y:	y2.append(qd[i])
+
+x2 = np.array(x2)
+y2 = np.array(y2)
+
+# model
+v = estimate_coef(x1, y1)
+b_0 = v[0]
+b_1 = v[1]
+
+print 'b0:', b_0
+print 'b1:', b_1
+print 'H(X) = (b0) + (b1)X'
+print ''
+
+flg_y = 0
+flg_n = 0
+c = 0
+for i in x2[:5706]:
+	h = int(b_0 + (i * b_1))
+	if y2[c] in [h-1, h, h+1]:	flg_y += 1
+	else:						flg_n += 1
+	c += 1
+
+print 'hit (y):', flg_y
+print 'hit (n):', flg_n
+print 'precision:', str(int((1.0*(flg_y) / (flg_n + flg_y)) * 100)) + '%'
+</pre>
+
+and the output:
+<pre style='background-color:grey'>
+b0: 6.810420540102156
+b1: -1.7232794054793747e-05
+H(X) = (b0) + (b1)X
+
+hit (y): 1197
+hit (n): 4509
+precision: 20%
+</pre>
+It seems this model could not be accurate enough.
+We may substitude the <i>D</i> column with <i>E</i>, <i>F</i>, <i>G</i>,
+<i>H</i>. Yet, the results are not satisfying.
+
+output for <i>E</i>:
+<pre style='background-color:grey'>
+b0: 13.11793274509037
+b1: 6.8080943870244235e-06
+H(X) = (b0) + (b1)X
+
+hit (y): 946
+hit (n): 4760
+precision: 16%
+</pre>
+output for <i>F</i>:
+<pre style='background-color:grey'>
+b0: 19.8204890321509
+b1: 3.1518412608820224e-05
+H(X) = (b0) + (b1)X
+
+hit (y): 823
+hit (n): 4883
+precision: 14%
+</pre>
+output for <i>G</i>:
+<pre style='background-color:grey'>
+b0: 26.781450722934096
+b1: -5.136197030381393e-05
+H(X) = (b0) + (b1)X
+
+hit (y): 849
+hit (n): 4857
+precision: 14%
+</pre>
+output for <i>H</i>:
+<pre style='background-color:grey'>
+b0: 33.44616856532452
+b1: 9.431015676513583e-06
+H(X) = (b0) + (b1)X
+
+hit (y): 1069
+hit (n): 4637
+precision: 18%
+</pre>
+Nevertheless, we use this achieved model to predict the next 60 records. We need
+to add values from 9564 up to 9603 to X vector, estimate the H(X) and compare
+them to values of Y vector:
+<pre style='background-color:grey'>
+import numpy as np
+import pandas as pd
+#import matplotlib.pyplot as plt
+from random import randint
+from random import sample
+
+def estimate_coef(x, y):
+	# number of observations/points
+	n = np.size(x)
+
+	# mean of x and y vector
+	m_x, m_y = np.mean(x), np.mean(y)
+
+	# calculating cross-deviation and deviation about x
+	SS_xy = np.sum(y*x) - n*m_y*m_x
+	SS_xx = np.sum(x*x) - n*m_x*m_x
+
+	# calculating regression coefficients
+	b_1 = SS_xy / SS_xx
+	b_0 = m_y - b_1*m_x
+
+	return(b_0, b_1)
+
+v1 = pd.read_csv('original.csv')
+
+b0 = 6.626903339843835
+b1 = -2.1567927472224064e-05
+
+x = range(9564, 9604)
+x = np.array(x)
+
+hx = []
+for i in x:	hx.append((b0) + (b1) * x)
+hx = np.array(hx)
+
+print 'X' + '\t' + 'H()' + '\t\t\t' + 'Y' + '\t' + 'HIT'
+print '-------------------------------------------'
+
+flg = ''
+c = 0
+for i in x:
+	hx = int(b0 + (i * b1))
+	print str(int(i)) + '\t' + '[' + str(hx - 4) + '...' + str(hx + 4) + ']    ' + str((b0 + (i * b1)))[:6] + '\t' + '?'
+	c += 1
+</pre>
+The output for column 'D':
+<pre style='background-color:grey'>
+X	H()			Y	HIT
+-------------------------------------------
+9564	[2...10]    6.4206	?
+9565	[2...10]    6.4206	?
+9566	[2...10]    6.4205	?
+9567	[2...10]    6.4205	?
+9568	[2...10]    6.4205	?
+9569	[2...10]    6.4205	?
+9570	[2...10]    6.4204	?
+9571	[2...10]    6.4204	?
+9572	[2...10]    6.4204	?
+9573	[2...10]    6.4204	?
+9574	[2...10]    6.4204	?
+9575	[2...10]    6.4203	?
+9576	[2...10]    6.4203	?
+9577	[2...10]    6.4203	?
+9578	[2...10]    6.4203	?
+9579	[2...10]    6.4203	?
+9580	[2...10]    6.4202	?
+9581	[2...10]    6.4202	?
+9582	[2...10]    6.4202	?
+9583	[2...10]    6.4202	?
+9584	[2...10]    6.4201	?
+9585	[2...10]    6.4201	?
+9586	[2...10]    6.4201	?
+9587	[2...10]    6.4201	?
+9588	[2...10]    6.4201	?
+9589	[2...10]    6.4200	?
+9590	[2...10]    6.4200	?
+9591	[2...10]    6.4200	?
+9592	[2...10]    6.4200	?
+9593	[2...10]    6.4200	?
+9594	[2...10]    6.4199	?
+9595	[2...10]    6.4199	?
+9596	[2...10]    6.4199	?
+9597	[2...10]    6.4199	?
+9598	[2...10]    6.4198	?
+9599	[2...10]    6.4198	?
+9600	[2...10]    6.4198	?
+9601	[2...10]    6.4198	?
+9602	[2...10]    6.4198	?
+9603	[2...10]    6.4197	?
+</pre>
+We don't have the actual values for Y to evaluate the prediction.
+
+The following figure displays parts of an output comes from testing the trained
+model on 10 records in range (9355..9364):
+<pre style='background-color:grey'>
+b0: 11.703804095102377
+b1: -0.0005160129003225081
+H(X) = (b0) + (b1)X
+
+X	H()		Y	HIT
+-------------------------------------------
+9364	[5, 6, 7]	3.0	no
+9363	[5, 6, 7]	17.0	no
+9362	[5, 6, 7]	7.0	yes
+9361	[5, 6, 7]	10.0	no
+9360	[5, 6, 7]	1.0	no
+9359	[5, 6, 7]	4.0	no
+9358	[5, 6, 7]	21.0	no
+9357	[5, 6, 7]	6.0	yes
+9356	[5, 6, 7]	7.0	yes
+9355	[5, 6, 7]	14.0	no
+</pre>
+<h3>Future Work</h3>
+We need to apply other method of regression algorithm, namely:
+	- multiple linear regression
+	- non-linear regression
+
+On top of that, we could apply them on other tables, such as
+<i>&lt;distance.csv&gt;</i>.
+</pre>

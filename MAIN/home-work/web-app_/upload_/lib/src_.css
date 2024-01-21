@@ -1,0 +1,10 @@
+#footer {
+	position: fixed;
+	bottom: 16;
+/*	top: 16;*/
+	width: 100%;
+}
+
+table tr:nth-child(even) {background-color: #eee;}
+table tr:nth-child(odd) {background-color: #fff;}
+table tr:hover {background-color: #ddd;}

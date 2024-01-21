@@ -1,0 +1,72 @@
+<pre>
+<h3>A Brief Report on "untitled"</h3>
+We received a <i>&lt;.xlsx&gt;</i> file which apparently keeps multiple tables
+side by side. The following figure illustrates some parts of it:
+<img src='1.png' />
+We extracted a record-set belongs to variables from C to H, by applying the
+following python code:
+<pre style='background-color: lightgray'>
+import pandas as pd
+
+v = pd.read_csv('ds.csv', header=None, low_memory=False)
+
+w = v[[2,3,4,5,6,7]][:9484]
+w.columns = ['C', 'D', 'E', 'F', 'G', 'H']
+
+w.to_csv('ds.csv')
+</pre>
+We named the new table as "original" and saved it as a <i>&lt;.csv&gt;</i> file.
+The following is a summery on the <i>&lt;original.csv&gt;</i> file:
+<pre style='background-color: lightgray'>
+name of variables (columns):	C D E F G H 
+number of samples (rows):	9484
+
+a bird's eye view of the table:
+
+        C     D     E     F     G     H
+0  9564.0   1.0   4.0   5.0   7.0  18.0
+1  9563.0   6.0  18.0  29.0  33.0  36.0
+2  9562.0  10.0  16.0  18.0  22.0  31.0
+3  9561.0  16.0  27.0  30.0  34.0  35.0
+4  9560.0   8.0  10.0  17.0  26.0  35.0
+.
+.
+.
+         C    D     E     F     G     H
+9479  85.0  3.0  15.0  30.0  34.0  38.0
+9480  84.0  9.0  10.0  13.0  14.0  23.0
+9481  83.0  1.0   6.0  17.0  30.0  35.0
+9482  82.0  2.0   9.0  12.0  18.0  21.0
+9483  81.0  5.0   8.0  10.0  30.0  38.0
+</pre>
+With the code we applied to achieve that summery:
+<pre style='background-color: lightgray'>
+import pandas as pd
+
+v1 = pd.read_csv('original.csv')
+
+print 'name of variables (columns):\t',
+for i in v1.columns[1:]:
+	print i,
+
+print ''
+print 'number of samples (rows):\t', len(v1.index)
+
+print ''
+print 'a bird\'s eye view of the table:'
+print ''
+print v1[['C', 'D', 'E', 'F', 'G', 'H']].head()
+print '.'
+print '.'
+print '.'
+print v1[['C', 'D', 'E', 'F', 'G', 'H']].tail()
+</pre>
+Future Tasks:
+	- Establish a 'train' and 'test' tables.
+
+	- Apply <b>linear regression</b> algorithm on each of them column vectors of
+	'train' data-set to achieve a model (formula).
+
+	- Examine the gained model on the same vectors of the 'test' data-set.
+	Models with the precision above 80% would be sufficient and reliable.
+</pre>

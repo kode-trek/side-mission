@@ -1,0 +1,10 @@
+#! /bin/bash
+
+sudo rm -r "/var/www/html/z-test/"
+sudo mkdir "/var/www/html/z-test/"
+sudo cp -r lib/* "/var/www/html/z-test/"
+sudo chown -R www-data:www-data "/var/www/html/z-test"
+
+sudo rm "/etc/php/7.4/apache2/php.ini"
+sudo cp "lib/conf/php-ORIGINAL.ini" "/etc/php/7.4/apache2/php.ini"
+sudo /etc/init.d/apache2 restart

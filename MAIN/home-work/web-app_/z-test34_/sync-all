@@ -1,0 +1,69 @@
+#! /bin/bash
+
+echo "git-sync..."
+
+while [ 1 ]
+do
+	# G.R.P.M.11
+	if [[ `date '+%T'` == 21:35:00 ]]
+	then
+		cd "G.R.P.M.11"
+		./sync-git
+		cd ..
+	fi
+	# game
+	if [[ `date '+%T'` == 21:40:00 ]]
+	then
+		cd "game"
+		./sync-git
+		cd ..
+	fi
+	# lab51
+	if [[ `date '+%T'` == 21:45:00 ]]
+	then
+		cd "lab51"
+		./sync-git
+		cd ..
+	fi
+	# mede
+	if [[ `date '+%T'` == 21:50:00 ]]
+	then
+		cd "mede"
+		./sync-git
+		cd ..
+	fi
+	# nc-mate
+	if [[ `date '+%T'` == 21:55:00 ]]
+	then
+		cd "nc-mate"
+		./sync-git
+		cd ..
+	fi
+	# voco
+	if [[ `date '+%T'` == 22:00:00 ]]
+	then
+		cd "voco"
+		./sync-git
+		cd ..
+	fi
+	# who
+	if [[ `date '+%T'` == 22:05:00 ]]
+	then
+		cd "who"
+		./sync-git
+		cd ..
+	fi
+	# archive
+	if [[ `date '+%T'` == 22:10:00 ]]
+	then
+		cd "archive"
+		./sync-git
+		cd ..
+	fi
+	# STOP
+	if [[ `date '+%T'` == 22:11:00 ]]
+	then
+		read -n1 -r -p "Press ANY-key to EXIT..." key
+		exit
+	fi
+done

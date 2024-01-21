@@ -1,0 +1,5 @@
+C:\boy_girl\bin\Debug\boy_girl.exe
+C:\boy_girl\bin\Debug\boy_girl.pdb
+C:\boy_girl\obj\Debug\boy_girl.csprojResolveAssemblyReference.cache
+C:\boy_girl\obj\Debug\boy_girl.exe
+C:\boy_girl\obj\Debug\boy_girl.pdb

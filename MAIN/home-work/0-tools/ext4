@@ -1,0 +1,5 @@
+#! /bin/bash
+
+find "$1" -type f -exec chmod 664 {} \;
+find "$1" -type d -exec chmod 775 {} \;
+

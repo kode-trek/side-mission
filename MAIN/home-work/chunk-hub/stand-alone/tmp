@@ -1,0 +1,31 @@
+#def writeLn(arg1, arg2):
+#	fh = open(arg2, 'w')
+#	fh.write(arg1)
+#	fh.write('\n')
+#	fh.close()
+
+#fh = open('stk.csv')
+
+#tot = 0
+
+#flg = 1
+#n1 = 1
+#while(flg == 1):
+#	n = 'fld/ch' + str(n1) + '.dat'
+#	fh.seek(tot)
+#	c = 0
+#	bff = ""
+#	while(c < 2000000):
+#		v1 = fh.readline()
+#		if(v1 == 'EOF\n'):
+#			flg = 0
+#		bff += v1
+#		l_v = len(v1)
+#		tot += l_v
+#		c += 1
+#	writeLn(bff, n)
+#	n1 += 1
+
+#fh.close()
+
+

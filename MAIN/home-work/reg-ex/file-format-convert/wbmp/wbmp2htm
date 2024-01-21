@@ -1,0 +1,24 @@
+#!/bin/bash
+
+fn="$1"
+function _conv {
+	fname=$(basename -- "$fn")
+	ext="${fname##*.}"
+	fname="${fname%.*}"
+
+	echo '<pre style="font-size: 30%">' > "$fname"'.htm'
+	seewbmp "$fn" >> "$fname"'.htm'
+	echo '</pre>' >> "$fname"'.htm'
+}
+
+seewbmp "$fn" &>/dev/null
+
+if [ $? -eq 0 ]
+then
+	_conv
+else
+	sudo apt-get install -y kannel
+	seewbmp "$fn" &>/dev/null;	_conv
+fi
+
+echo '<'"$fn"'> converted to <'"$fname"'.htm>'

@@ -1,0 +1,9 @@
+Dim writer As New System.IO.StreamWriter("test.txt")
+writer.WriteLine(txt1.Text)
+writer.Close()
+
+Dim reader As New System.IO.StreamReader("test.txt")
+lbl1.Text = reader.ReadLine
+reader.Close()
+
+Process.Start("cmd1.BAT")

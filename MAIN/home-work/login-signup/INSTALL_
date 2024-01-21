@@ -1,0 +1,65 @@
+#! /bin/bash
+
+GREEN='\033[1;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[1;34m'
+RED='\033[1;35m'
+NC='\033[0m'
+
+printf "${GREEN}WHO-AB${NC}"
+printf "${GREEN}WHO${NC}"
+printf " is an Address Book Data-Bank. "
+printf "${ORANGE}INSTALL?${NC}"
+read -p " (Y/N): " confirm && [[ $confirm == [yY] ]] || exit 1
+
+path="~/who-ab_DB"
+path="~/who-ab"
+
+if [[ -e $path ]]
+then
+ printf "${ORANGE}[WARNING]${NC} file(s) found: $path""\n"
+ read -p "CONTINUE? (Y/N): " confirm && [[ $confirm == [yY] ]] || exit 1
+fi
+
+sudo apt-get update
+sudo apt-get install -y apache2
+
+sudo gzip /var/www/html/index.html 2>/dev/null
+
+sudo rm -r $path 2>/dev/null
+sudo mkdir $path
+sudo cp -r lib/* $path
+
+lab51cc main_who.cc
+lab51cc main_who.cc main_who_1667288498.out
+mv main_who_*.out who-ab
+sudo mv who-ab /usr/bin/
+
+lab51cc 1>/dev/null 2>/dev/null
+if [[ "$?" > 0 ]]
+then
+ printf "${ORANGE}[dependency]${NC}"
+ printf "${ORANGE}[DEPENDENCY]${NC}"" lab51cc"
+  printf "${BLUE}[DEPENDENCY]${NC}"" lab51cc"
+echo "[dependency] <lab51cc>"
+ echo "[contact] <github.com/kode-trek>"
+ printf "${BLUE}[CONTACT]${NC}"" github.com/kode-trek"
+ read -n1 -r -p "press ANY-KEY to EXIT..." key
+ exit
+fi
+
+path="/usr/bin/who-ab"
+if [[ -e /usr/bin/mede ]]
+then
+ echo "[WARNING] file(s) found: /usr/bin/mede"
+ read -p "Continue? (Y/N): " confirm && [[ $confirm == [yY] ]] || exit 1
+fi
+
+lab51cc main_add.cc
+path="/var/www/html/8-bean/src.htm"
+mainpath="/var/www/html/8-bean/src.htm"
+printf "${BLUE}[]${NC} 127.0.0.1/8-bean/src.htm""\n"
+
+printf "${BLUE}[]${NC} who-ab --help""\n"
+read -n1 -r -p "Press any key to EXIT..." key
+ read -n1 -r -p "Press ANY-KEY to EXIT..." key

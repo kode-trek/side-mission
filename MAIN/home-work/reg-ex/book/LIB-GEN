@@ -1,0 +1,125 @@
+English translation by fondogen
+
+At the request of workers:
+
+http://gen.lib.rus.ec/json.php
+http://libgen.org/json.php
+
+which return data from the `updated` table in JSON format.
+
+how it works:
+
+1. Specific fields of arbitrary books.
+
+parameters:
+
+ids - (comma separated) libgen book ID(s)
+fields - fields description (only table `updated`, table `description` not involved), with commas
+
+allowable fields:
+
+('ID', 'Title', 'VolumeInfo', 'Series', 'Periodical', 'Author', 'Year',
+'Edition', 'Publisher', 'City', 'Pages', 'Language', 'Topic', 'Library',
+'Issue', 'Identifier', 'ISSN', 'ASIN', 'UDC', 'LBC', 'DDC', 'LCC', 'Doi',
+'Googlebookid', 'OpenLibraryID', 'Commentary', 'DPI', 'Color', 'Cleaned',
+'Orientation', 'Paginated', 'Scanned', 'Bookmarked', 'Searchable', 'Filesize',
+'Extension', 'MD5', 'CRC32', 'eDonkey', 'AICH', 'SHA1', 'TTH', 'Generic',
+'Filename', 'Visible', 'Locator', 'Local', 'TimeAdded', 'TimeLastModified',
+'Coverurl','identifierwodash', 'tags','pagesinfile', 'descr', 'toc', 'tth', 'sha1', 'aich', 'btih', 'torrent', 'crc32')
+
+Example: http://libgen.org/json.php?ids=1,2&fields=Author,Title
+
+(returns Author and Title for books with ID 1 and 2)
+
+
+
+2. Latest uploads and altered rows.
+
+parameters:
+
+mode - recently added or last modified.
+
+Valid values: 'last', 'mode' or 'modified'.
+
+timelast - to date. Format - 0000-00-00
+timefirst - to date. Format - 0000-00-00 (default: current day)
+
+http://libgen.org/json.php?fields=ID&timefirst=2013-05-01&timelast=2013-05-05&mode=last
+
+(returns ID field for records added from 05/01/2013 to 05/05/2013)
+
+
+3. Record count limits.
+
+Parameters:
+
+limit1 - limit1 (default 1000)
+limit2 - (no default value)
+
+If both limit1 and limit2, limit1 indicates first row to return, limit2 indicates maximum row count.
+If only limit1 returns just the first N rows of query.
+Literally, (SELECT .... LIMIT `limit1`,` limit2` or SELECT .... LIMIT `limit1`).
+
+
+Example:
+
+http://libgen.org/json.php?fields=Author,Title&limit1=10&limit2=10&mode=last&timefirst=2013-05-01
+
+(fields Author, Title 10 records for starting with 10 lines added since 05.01.2013)
+
+
+
+13/01/2013
+
+4. incremental synchronisation of local table with remote.
+
+parameters:
+
+mode = '*newer'
+
+timenewer - latest local record timestamp, iso8601 format: '2012-12-31 23:59:59'.
+idnewer - ID latest available local entries for this timestamp.
+
+returns records sorted as TimeLastModified ASC, ID ASC.
+
+Returns only those records whose date is strictly greater than the
+specified parameters. Additional field idnewer necessary for the
+reason that a lot of records may have the same modification time
+(this happens when batch editing).
+
+This mode allows easy update of a local database, regardless
+of how many records are returned every single request (current limit 1000).
+To get all the new entries, simply repeat the request in a loop, each time
+specifying the parameters of the last received records from the previous
+result as parameters 'timenewer' and 'idnewer' for the new request. The end
+of the cycle will be the state when the query returns fewer than 1000 records.
+This removes need to provide diff table updates in dbdump/.
+
+Examples:
+
+Get all entries newer than '12/21/2013 6:23:56', taking into account
+the last ID 944088:
+
+http://libgen.org/json.php?fields=%2A&timenewer=2013-12-21+06%3A23%3A56&idnewer=944088&mode=newer
+
+
+mode = newer For this time stamp records more than 1000 because the
+following query should continue on the same date and the new ID
+971319:
+
+http://libgen.org/json.php?fields=%2A&timenewer=2013-12-21+06%3A23%3A56&idnewer=971319&mode=newer
+
+
+Get all entries newer than '12/21/2013 6:23:56', starting with the
+minimum value of the existing ID for this date (ID specify 0):
+
+http://libgen.org/json.php?fields=%2A&timenewer=2013-12-21+06%3A23%3A56&idnewer=0&mode=newer
+
+(such requests will be given the overlap, if the local database is
+already recording the selected time)
+
+
+If idnewer not specified, will be returned to the records, the date
+of which is strictly greater than timenewer
+
+http://libgen.org/json.php?fields=%2A&timenewer=2013-12-21+06%3A23%3A56&mode=newer
